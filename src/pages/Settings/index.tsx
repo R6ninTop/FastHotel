@@ -1,8 +1,6 @@
 // src/pages/Settings/index.tsx
 import React, { useState } from 'react';
 import SideMenu from '../../components/SideMenu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'; // Ícones para claro/escuro
 
 import {
   SettingsContainer,

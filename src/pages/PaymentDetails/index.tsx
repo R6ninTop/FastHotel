@@ -82,7 +82,7 @@ const PaymentDetails: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFinalizing, setIsFinalizing] = useState(false);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [isProcessingPayment] = useState(false);
 
   // ESTADOS PARA O MODAL DE PAGAMENTO
   const [showPaymentModal, setShowPaymentModal] = useState(false);

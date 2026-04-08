@@ -190,7 +190,7 @@ const ChatOnline: React.FC = () => {
     return () => {
       newSocket.disconnect();
     };
-  }, [conversaId, navigate, userInfo?.id, userInfo?.tipo_usuario, userInfo?.nome]); // Dependências
+  }, [conversaId, navigate, userInfo]); // Dependências
 
 
   // Efeito para scrollar para o final quando novas mensagens chegam (ou carregam)

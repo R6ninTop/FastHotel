@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SideMenu from '../../components/SideMenu';
 import { HomeContainer, MainContent } from '../Home/styles';
 
@@ -64,7 +64,7 @@ const Analytics: React.FC = () => {
   // =========================================================================
   // CORREÇÃO 1: Adicionar o header 'x-auth-token' na chamada da API
   // =========================================================================
-  async function api<T = any>(path: string): Promise<T> {
+  const api = useCallback(async function <T = any>(path: string): Promise<T> {
     const res = await fetch(path, {
       headers: {
         'x-auth-token': token || '' // Usando o header de autenticação correto
@@ -76,9 +76,9 @@ const Analytics: React.FC = () => {
       throw new Error(errorBody.message || 'Erro desconhecido');
     }
     return res.json();
-  }
+  }, [token]);
 
-  async function carregar() {
+  const carregar = useCallback(async () => {
     if (!from || !to) { alert('Defina as datas De/Até.'); return; }
     setLoading(true);
     try {
@@ -109,7 +109,7 @@ const Analytics: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }
+  }, [from, to, api, API]);
 
   function exportCSV(tableId: string) {
     const table = document.getElementById(tableId);
@@ -122,7 +122,7 @@ const Analytics: React.FC = () => {
     a.href = url; a.download = `${tableId}.csv`; a.click(); URL.revokeObjectURL(url);
   }
 
-  useEffect(() => { carregar(); }, []);
+  useEffect(() => { carregar(); }, [carregar]);
 
   return (
     <HomeContainer>

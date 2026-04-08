@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import SideMenu from '../../components/SideMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faClipboardList, faCreditCard, faTrashAlt } from '@fortawesome/free-solid-svg-icons'; // <-- Adicionado faTrashAlt
@@ -51,7 +51,7 @@ const Guests: React.FC = () => {
   };
 
   // Função para buscar os hóspedes da API
-  const fetchGuests = async () => {
+  const fetchGuests = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -85,11 +85,11 @@ const Guests: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     fetchGuests();
-  }, [navigate]);
+  }, [fetchGuests]);
 
   const handleRegisterGuestClick = () => {
     navigate('/guests/register');

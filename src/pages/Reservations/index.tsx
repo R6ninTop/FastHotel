@@ -93,10 +93,13 @@ const Reservations: React.FC = () => {
     }
   }, [currentDate, /* token e api_url do env não precisam ser dependências diretas, pois são constantes */]);
 
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
   // Efeito para buscar dados quando o mês ou ano muda
   useEffect(() => {
     fetchRoomAvailability();
-  }, [currentDate.getFullYear(), currentDate.getMonth(), fetchRoomAvailability]);
+  }, [currentYear, currentMonth, fetchRoomAvailability]);
 
   // Efeito para atualizar os quartos exibidos quando a data atual ou os dados do mês mudam
   useEffect(() => {
