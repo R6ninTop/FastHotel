@@ -65,7 +65,23 @@ const Login: React.FC = () => {
       }
     } catch (err) {
       console.error('Erro de rede ou servidor:', err);
-      setError('Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente mais tarde.');
+      // MOCK LOGIN: Se não conseguir conectar ao backend, aceita qualquer login
+      if (email && senha) {
+        const mockToken = 'mock-jwt-token-' + Date.now();
+        const mockUser = {
+          id: 1,
+          nome: 'Usuário Mock',
+          email: email,
+          tipo_usuario: 'admin'
+        };
+        localStorage.setItem('token', mockToken);
+        localStorage.setItem('user_info', JSON.stringify(mockUser));
+
+        alert('Login mock realizado (backend indisponível)!');
+        navigate('/home');
+      } else {
+        setError('Preencha usuário e senha.');
+      }
     } finally {
       setLoading(false);
     }
